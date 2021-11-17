@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Player : Character, IAttackFunc
 {
-    int atk;
-    int def;
+    public int atk;
+    public int def;
 
     public static Animator animator;
 
@@ -39,6 +40,16 @@ public class Player : Character, IAttackFunc
     public override void Die()
     {
         GameManager.instance.dieEvent();
+    }
+
+    public void Boost(Action<Player, int> boost)
+    {
+        boost(this, 20);
+    }
+
+    public void Func<T>(T value)
+    {
+        Debug.Log(value);
     }
 
     public override void OnTriggerEnter(Collider other)

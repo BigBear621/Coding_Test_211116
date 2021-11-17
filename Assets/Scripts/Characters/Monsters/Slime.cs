@@ -33,6 +33,6 @@ public class Slime : Monster, ICloneFunc
 
     public override void Die()
     {
-        
+        this.gameObject.SetActive(false);
     }
 }

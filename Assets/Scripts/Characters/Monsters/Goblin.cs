@@ -36,7 +36,7 @@ public class Goblin : Monster, IAttackFunc
 
     public override void Die()
     {
-        
+        this.gameObject.SetActive(false);
     }
 
     public override void OnTriggerEnter(Collider other)

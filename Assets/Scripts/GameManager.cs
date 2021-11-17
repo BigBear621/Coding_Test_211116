@@ -18,6 +18,14 @@ public class GameManager : Singleton<GameManager>
     {
         dieEvent += delegate { StartCoroutine(AnimateDyingMotion()); };
         dieEvent += LoadLastScene;
+        dieEvent += () => Debug.Log("Á×À½");
+        dieEvent += () => {
+            Debug.Log("3");
+            new WaitForSeconds(1);
+            Debug.Log("2");
+            new WaitForSeconds(1);
+            Debug.Log("1");
+        };
     }
 
     public IEnumerator AnimateDyingMotion()
