@@ -16,31 +16,33 @@ public class GameManager : Singleton<GameManager>
 
     void Start()
     {
-        dieEvent += delegate { StartCoroutine(AnimateDyingMotion()); };
-        dieEvent += LoadLastScene;
         dieEvent += () => Debug.Log("Á×À½");
-        dieEvent += () => {
-            Debug.Log("3");
-            new WaitForSeconds(1);
-            Debug.Log("2");
-            new WaitForSeconds(1);
-            Debug.Log("1");
+        dieEvent += () =>
+        {
+            Player.animator.SetBool("isDying", true);
+            StartCoroutine(CountDown());
         };
     }
 
-    public IEnumerator AnimateDyingMotion()
+    public IEnumerator CountDown()
     {
-        Player.animator.SetBool("isDying", true);
-        asyncOperation = SceneManager.LoadSceneAsync("LastScene");
-        yield return new WaitForSeconds(3);
+        for (int i = 5; i > 0; i--)
+        {
+            Debug.Log(i);
+            yield return new WaitForSeconds(1);
+        }
+        LoadLastScene();
     }
 
     public void LoadLastScene()
     {
+        asyncOperation = SceneManager.LoadSceneAsync("LastScene");
         if (asyncOperation.isDone)
-            asyncOperation.allowSceneActivation = true;
-        button = FindObjectOfType<Button>();
-        button.onClick.AddListener(delegate { Revive(); });
+        {
+            //button = FindObjectOfType<Button>();
+            button = transform.parent.Find("Revive").GetComponent<Button>();
+            button.onClick.AddListener(delegate { Debug.Log("´©¸§"); Revive(); });
+        }
     }
     
     public void Revive()

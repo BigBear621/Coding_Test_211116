@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : Monster, IAttackFunc
+public class Dragon : Monster, IAttackFunc
 {
     public int atk;
 
     void Start()
     {
-        maxHp = 50;
+        maxHp = 9999999;
         Hp = maxHp;
-        atk = 5;
-        def = 10;
+        atk = 999;
+        def = 999;
     }
 
     public void Attack(Character target)
@@ -24,6 +24,7 @@ public class Goblin : Monster, IAttackFunc
         if (other.GetComponent<Player>() != null)
             Attack(other.GetComponent<Player>());
     }
+
     public override void Die()
     {
         base.Die();

@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item<T> : MonoBehaviour
+public class ItemPool : MonoBehaviour
 {
-    public Stack<Item<T>> itemStack;
-    public Dictionary<Item<T>, Boost<T>> itemEffect;
+    public Stack<GameObject> itemStack;
+    public Dictionary<GameObject, Boost> itemEffect;
+
     public delegate void UseItem();
     public UseItem useItem;
 
@@ -22,5 +23,8 @@ public class Item<T> : MonoBehaviour
         }
     }
 
-    public void Func() { }
+    public void Func()
+    {
+
+    }
 }

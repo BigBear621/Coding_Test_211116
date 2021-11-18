@@ -10,7 +10,9 @@ public class Slime : Monster, ICloneFunc
     {
         maxHp = 100;
         Hp = maxHp;
+        def = 5;
         maxCloneHp = 50;
+        hpEvent += delegate { if (Hp < maxHp / 2 && Hp >= maxCloneHp) Clone(); };
     }
 
     public void Clone()
@@ -24,15 +26,8 @@ public class Slime : Monster, ICloneFunc
         Instantiate(temp.gameObject);
     }
 
-    public override void Hit(int _atk)
-    {
-        Hp -= _atk;
-        if (Hp < maxHp / 2 && Hp >= maxCloneHp)
-            Clone();
-    }
-
     public override void Die()
     {
-        this.gameObject.SetActive(false);
+        base.Die();
     }
 }

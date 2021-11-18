@@ -29,4 +29,10 @@ public class MonsterPool<T> : MonoBehaviour where T : Monster
     {
         Debug.Log(monsterQueue.Count);
     }
+
+    public void Spawn()
+    {
+        GameObject temp = monsterQueue.Dequeue();
+        temp.SetActive(false);
+    }
 }

@@ -6,7 +6,6 @@ using System;
 public class Player : Character, IAttackFunc
 {
     public int atk;
-    public int def;
 
     public static Animator animator;
 
@@ -14,27 +13,16 @@ public class Player : Character, IAttackFunc
     {
         maxHp = 100;
         Hp = maxHp;
-        atk = 10;
+        atk = 15;
         def = 10;
+
+        animator = GetComponent<Animator>();
     }
 
     public void Attack(Character target)
     {
+        animator.SetBool("isAttacking", true);
         target.Hit(atk);
-    }
-
-    public override void Hit(int _atk)
-    {
-        damage = -(def - _atk);
-        if (damage <= 0)
-        {
-            damage = 0;
-            Debug.Log("아무런 피해가 없었다!");
-        }
-        if (damage > 0)
-        {
-            Hp -= damage;
-        }
     }
 
     public override void Die()
@@ -42,14 +30,9 @@ public class Player : Character, IAttackFunc
         GameManager.instance.dieEvent();
     }
 
-    public void Boost(Action<Player, int> boost)
+    public void GetBoost(Action<Player, int> boost)
     {
         boost(this, 20);
-    }
-
-    public void Func<T>(T value)
-    {
-        Debug.Log(value);
     }
 
     public override void OnTriggerEnter(Collider other)

@@ -20,16 +20,37 @@ public class Character : MonoBehaviour
                 hp = 0;
                 Die();
             }
-            hpText.text = hp.ToString();
+            if (hpEvent != null)
+                hpEvent();
+            hpText.text = "HP : " + hp.ToString();
         }
     }
+    public delegate void HpEvent();
+    public HpEvent hpEvent;
+
+    public int def;
 
     public int damage;
     public TextMeshProUGUI hpText;
 
-    public virtual void Hit(int _atk) { }
+    public void Hit(int _atk)
+    {
+        damage = -(def - _atk);
+        if (damage <= 0)
+        {
+            damage = 0;
+            Debug.Log(name + "에게 아무런 피해가 없었다!");
+        }
+        if (damage > 0)
+        {
+            Hp -= damage;
+        }
+    }
 
-    public virtual void Die() { }
+    public virtual void Die()
+    {
+        gameObject.SetActive(false);
+    }
 
     public virtual void OnTriggerEnter(Collider other) { }
 }

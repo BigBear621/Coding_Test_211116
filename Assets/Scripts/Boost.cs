@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class Boost<T> : MonoBehaviour
+public class Boost : MonoBehaviour
 {
-    public Action<Player, int> boostAction;
+    public Action<Player, int> useBoost;
+    public List<Action<Player, int>> boostList;
 
     public void HpBoost(Player player, int value)
     {
@@ -24,14 +25,15 @@ public class Boost<T> : MonoBehaviour
 
     void Start()
     {
-        boostAction += HpBoost;
-        boostAction += AtkBoost;
-        boostAction += DefBoost;
+        boostList.Add(HpBoost);
+        boostList.Add(AtkBoost);
+        boostList.Add(DefBoost);
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        useBoost += boostList[UnityEngine.Random.Range(0, 3)];
         if (other.GetComponent<Player>() != null)
-            other.GetComponent<Player>().Heal(boostAction);
+            other.GetComponent<Player>().GetBoost(useBoost);
     }
 }

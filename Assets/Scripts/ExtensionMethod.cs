@@ -19,4 +19,12 @@ public static class ExtensionMethod
         else
             return false;
     }
+
+    //public static bool Between<T>(this T value, T a, T b)
+    //{
+    //    if (value >= a && value <= b)
+    //        return true;
+    //    else
+    //        return false;
+    //}
 }
